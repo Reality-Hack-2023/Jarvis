@@ -33,6 +33,7 @@ bool intr_millis_valid = true;
 unsigned int heart_rate;
 bool heart_rate_updated = false;
 
+const int min_heartpulse_duty = 250;
 const int max_heartpulse_duty = 2000;
 
 void update_delta_from_running_sum() {
@@ -116,22 +117,28 @@ void update_heart_rate() {
 
 void interrupt()
 {
-  intr_millis[counter] = millis();
-    
+  unsigned long curr_millis = millis();
+
   switch(counter) {
   case 0:
-    delta_since_last_intr = intr_millis[counter]-intr_millis[INTR_BUFFER_SIZE];
+    delta_since_last_intr = curr_millis-intr_millis[INTR_BUFFER_SIZE];
     break;
   default:
-    delta_since_last_intr = intr_millis[counter]-intr_millis[counter-1];
+    delta_since_last_intr = curr_millis-intr_millis[counter-1];
     break;
   }
 
   if (delta_since_last_intr > max_heartpulse_duty) {
+    // 2 seconds since last heart beat - throw away current measurements
     intr_millis_valid = false;
     counter = 0;
     arrayInit();
+  } else if (delta_since_last_intr < min_heartpulse_duty) {
+    // discard this interrupt as it occurred <250ms since the last one
+    return;
   }
+
+  intr_millis[counter] = curr_millis;
   
   if (counter == INTR_BUFFER_SIZE && intr_millis_valid) {
     counter = 0;
