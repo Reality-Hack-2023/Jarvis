@@ -11,17 +11,17 @@ public class OurSingularityHappenings : MonoBehaviour
     public UnityEvent<float> hrv;
     public UnityEvent<float> stress_level;
 
-    public void onConnected() {
+    public void OnConnected() {
         Debug.Log("Connected to device!");
     }
 
-    public void onMessageRecieved(string message) {
+    public void OnMessageRecieved(string message) {
         Debug.Log("Message recieved from device: " + message);
         if (message.StartsWith("DATA:"))
         {
             var tabloc = message.IndexOf('\t');
-            var payload = message.Substring(tabloc);
-            var tag = message.Substring(0, tabloc - 1);
+            var payload = message[tabloc..];
+            var tag = message[0..tabloc];
             UnityEvent<float> evtgt = null;
             switch (tag)
             {
@@ -36,14 +36,14 @@ public class OurSingularityHappenings : MonoBehaviour
                     break;
                 default:
                     Debug.LogErrorFormat("Argh! %s is absolutely not one of our payload types!", tag);
-                    break;
+                    return;
             }
             float payload_value = float.Parse(payload);
             evtgt.Invoke(payload_value);
         }
     }
 
-    public void onError(string errorMessage) {
+    public void OnError(string errorMessage) {
         Debug.LogErrorFormat("Error with Singularity: %s", errorMessage);
     }
 
@@ -53,7 +53,7 @@ public class OurSingularityHappenings : MonoBehaviour
         Debug.Log("JARVIS");
 
         List<DeviceSignature> pairedDevices = mySingularityManager.GetPairedDevices();
-        DeviceSignature myDevice = default(DeviceSignature);
+        DeviceSignature myDevice = default;
 
         foreach (DeviceSignature ds in pairedDevices) {
             if (ds.name == "jARvis") {
@@ -67,9 +67,10 @@ public class OurSingularityHappenings : MonoBehaviour
         }
 
         if (!myDevice.Equals(default(DeviceSignature))) {
+            Debug.Log("Connected!");
             mySingularityManager.ConnectToDevice(myDevice);
         } else {
-            Debug.LogError("CANNOT FIND DEVICE !!! :(");
+            throw new System.Exception("CANNOT FIND DEVICE !!! :(");
         }
     }
 
