@@ -3,6 +3,8 @@
 #include <BTScan.h>
 #include <BluetoothSerial.h>
 
+#include "soc/rtc_wdt.h"
+
 /*
   ATTRIBUTION:
     - example code from seeed studio: https://wiki.seeedstudio.com/Grove-Ear-clip_Heart_Rate_Sensor/#specifications
@@ -13,7 +15,7 @@
 
 BluetoothSerial BTSerial;
 
-#define USE_BT 1
+#define USE_BT 0
 
 #if USE_BT
   #define MySerial BTSerial
@@ -36,6 +38,31 @@ const int max_heartpulse_duty = 2000;
 void update_delta_from_running_sum() {
   for (int i = 1; i < INTR_BUFFER_SIZE + 1; i++) {
     intr_millis_delta[i-1] = intr_millis[i] - intr_millis[i-1];
+  }
+}
+
+#define STRESS_LEVEL_CLASS_ARR_LEN 3
+int stress_level_class_arr[] = {25, 50, 100};
+
+int get_stress_level_from_hrv(double hrv) {
+  /*
+    0: <25
+    1: 25<x<=50
+    2: 50<x<=100
+    3: >100
+  */
+
+  if (hrv < stress_level_class_arr[0]) {
+    return 0;
+  } else if (hrv > stress_level_class_arr[STRESS_LEVEL_CLASS_ARR_LEN - 1]) {
+    return STRESS_LEVEL_CLASS_ARR_LEN;
+  } else {
+    for (int i = 0; i < STRESS_LEVEL_CLASS_ARR_LEN; i++) {
+      // out of bounds for last elem but will never reach this case 
+      if (hrv > stress_level_class_arr[i] && hrv <= stress_level_class_arr[i+1]) {
+        return i + 1;
+      }
+    }
   }
 }
 
@@ -72,21 +99,19 @@ void loop()
   if (!heart_rate_updated) return;
 
   double hrv = rmssd();
+  int stress_level = get_stress_level_from_hrv(hrv);
   MySerial.print("HRV:\t");
   MySerial.println(hrv);
   MySerial.print("HR:\t");
   MySerial.println(heart_rate);
+  MySerial.print("SL:\t");
+  MySerial.println(stress_level);
   heart_rate_updated = false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 }
 
 void update_heart_rate() {
-  if (intr_millis_valid) {
-    heart_rate = 240000/(intr_millis[INTR_BUFFER_SIZE]-intr_millis[0]); //INTR_BUFFER_SIZE * 60 * 1000 / total_time
-    heart_rate_updated = true;
-  } else {
-    // run through another iteration, assume valid unless delta since last exceeds 2s
-    //intr_millis_valid = true;
-  }
+  heart_rate = 240000/(intr_millis[INTR_BUFFER_SIZE]-intr_millis[0]); //INTR_BUFFER_SIZE * 60 * 1000 / total_time
+  heart_rate_updated = true;
 }
 
 void interrupt()
@@ -105,7 +130,6 @@ void interrupt()
   if (delta_since_last_intr > max_heartpulse_duty) {
     intr_millis_valid = false;
     counter = 0;
-    MySerial.println("Resetting dataset");
     arrayInit();
   }
   
@@ -122,8 +146,8 @@ void interrupt()
 
 void arrayInit()
 {
-  for(unsigned char i=0; i < INTR_BUFFER_SIZE;i ++) {
-    intr_millis[i]=0;
+  for (unsigned char i=0; i < INTR_BUFFER_SIZE; i++) {
+    intr_millis[i] = 0;
   }
-  intr_millis[INTR_BUFFER_SIZE]=millis();
+  intr_millis[INTR_BUFFER_SIZE] = millis();
 }
