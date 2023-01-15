@@ -5,24 +5,30 @@ using TMPro;
 public class HRTextUpdater : MonoBehaviour
 {
 
-    public TextMeshProUGUI hrtext;
-    public int currentHr = 120;
-    public string textTemplate;
+    public TextMeshProUGUI labelElement;
+    string textTemplate;
+    public OurSingularityHappenings sensor_data;
+
     // Start is called before the first frame update
     void Start()
     {
-        textTemplate = hrtext.text;
+        textTemplate = labelElement.text;
+        sensor_data.hr.AddListener(hr =>
+        {
+            UpdateTemplate("{hr}", hr);
+        });
+        sensor_data.hrv.AddListener(hrv =>
+        {
+            UpdateTemplate("{hrv}", hrv);
+        });
+        sensor_data.stress_level.AddListener(sl =>
+        {
+            UpdateTemplate("{sl}", sl);
+        });
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateTemplate(string metavariable, float value)
     {
-        
-    }
-
-    public void IncreaseHR(int number_bpm)
-    {
-        currentHr += number_bpm;
-        hrtext.text = textTemplate.Replace("{hr}", currentHr.ToString());
+        labelElement.text = textTemplate.Replace(metavariable, value.ToString());
     }
 }

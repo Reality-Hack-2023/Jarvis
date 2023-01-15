@@ -16,7 +16,7 @@ public class OurSingularityHappenings : MonoBehaviour
     }
 
     public void OnMessageRecieved(string message) {
-        Debug.Log("Message recieved from device: " + message);
+        Debug.LogFormat("Message recieved from device: {1} bytes: {0}", message.Length, message);
         if (message.StartsWith("DATA:"))
         {
             var tabloc = message.IndexOf('\t');
@@ -35,7 +35,7 @@ public class OurSingularityHappenings : MonoBehaviour
                     evtgt = stress_level;
                     break;
                 default:
-                    Debug.LogErrorFormat("Argh! %s is absolutely not one of our payload types!", tag);
+                    Debug.LogErrorFormat("Argh! {0} is absolutely not one of our payload types!", tag);
                     return;
             }
             float payload_value = float.Parse(payload);
@@ -44,7 +44,7 @@ public class OurSingularityHappenings : MonoBehaviour
     }
 
     public void OnError(string errorMessage) {
-        Debug.LogErrorFormat("Error with Singularity: %s", errorMessage);
+        Debug.LogErrorFormat("Error with Singularity: {0}", errorMessage);
     }
 
     // Start is called before the first frame update
@@ -57,12 +57,12 @@ public class OurSingularityHappenings : MonoBehaviour
 
         foreach (DeviceSignature ds in pairedDevices) {
             if (ds.name == "jARvis") {
-                Debug.LogFormat("found jarvis! it's %s", ds.ToString());
+                Debug.LogFormat("found jarvis! it's {0}", ds.ToString());
                 myDevice = ds;
                 break;
             } else
             {
-                Debug.LogWarningFormat("ignoring device %s", ds.ToString());
+                Debug.LogWarningFormat("ignoring device {0}", ds.ToString());
             }
         }
 

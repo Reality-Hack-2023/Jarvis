@@ -230,9 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ef6a232a0260e4eb6645fa10df33eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hrtext: {fileID: 196939911}
-  currentHr: 0
-  textTemplate: 
+  labelElement: {fileID: 196939911}
+  sensor_data: {fileID: 597640606}
 --- !u!114 &196939911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,8 +510,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onConnected
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnConnected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -526,9 +525,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onMessageRecieved
-        m_Mode: 0
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnMessageRecieved
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -541,9 +540,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onError
-        m_Mode: 0
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnError
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -612,6 +611,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySingularityManager: {fileID: 527042384}
+  hr:
+    m_PersistentCalls:
+      m_Calls: []
+  hrv:
+    m_PersistentCalls:
+      m_Calls: []
+  stress_level:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: -31.9}
+  m_AnchoredPosition: {x: 30, y: 65.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862642092
