@@ -15,7 +15,7 @@
 
 BluetoothSerial BTSerial;
 
-#define USE_BT 0
+#define USE_BT 1
 
 #if USE_BT
   #define MySerial BTSerial
@@ -101,13 +101,14 @@ void loop()
 
   double hrv = rmssd();
   int stress_level = get_stress_level_from_hrv(hrv);
-  MySerial.print("HRV:\t");
+  MySerial.print("DATA:HRV:\t");
   MySerial.println(hrv);
-  MySerial.print("HR:\t");
+  MySerial.print("DATA:HR:\t");
   MySerial.println(heart_rate);
-  MySerial.print("SL:\t");
+  MySerial.print("DATA:SL:\t");
   MySerial.println(stress_level);
-  heart_rate_updated = false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  heart_rate_updated = false;         
+  MySerial.flush();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 }
 
 void update_heart_rate() {

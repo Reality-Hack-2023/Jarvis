@@ -230,9 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ef6a232a0260e4eb6645fa10df33eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hrtext: {fileID: 196939911}
-  currentHr: 0
-  textTemplate: 
+  labelElement: {fileID: 196939911}
+  sensor_data: {fileID: 597640606}
 --- !u!114 &196939911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +252,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Patient HR:  {hr}'
+  m_text: 'Subject: USER NAME HERE
+
+    HR: {hr}
+
+    HRV: {hrv}
+
+    SL: {sl}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -316,7 +321,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -62.13266, w: 0}
+  m_margin: {x: 0, y: 0, z: -351.979, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -505,8 +510,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onConnected
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnConnected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -520,8 +525,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onMessageRecieved
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnMessageRecieved
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -535,8 +540,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597640606}
-        m_TargetAssemblyTypeName: GameObjectScript, Assembly-CSharp
-        m_MethodName: onError
+        m_TargetAssemblyTypeName: OurSingularityHappenings, Assembly-CSharp
+        m_MethodName: OnError
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -572,7 +577,7 @@ GameObject:
   - component: {fileID: 597640605}
   - component: {fileID: 597640606}
   m_Layer: 0
-  m_Name: ExampleCommunicator
+  m_Name: OurHappenings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,6 +611,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySingularityManager: {fileID: 527042384}
+  hr:
+    m_PersistentCalls:
+      m_Calls: []
+  hrv:
+    m_PersistentCalls:
+      m_Calls: []
+  stress_level:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,13 +926,74 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.8, y: 1, z: -240}
+  m_LocalPosition: {x: 135.6, y: 1, z: -326.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1727902643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -42.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b1078b1bc9de9b47b04236e4a503f82, type: 2}
+    - target: {fileID: 919132149155446097, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
+      propertyPath: m_Name
+      value: SphereObj
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f4a473103a49d84b852bf92115fc246, type: 3}
 --- !u!1 &1862642090
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +1031,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: -31.9}
+  m_AnchoredPosition: {x: 30, y: 65.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862642092

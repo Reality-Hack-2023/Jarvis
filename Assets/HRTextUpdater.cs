@@ -2,27 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
+
 public class HRTextUpdater : MonoBehaviour
 {
 
-    public TextMeshProUGUI hrtext;
-    public int currentHr = 120;
-    public string textTemplate;
+    public TMP_Text labelElement;
+    string textTemplate;
+    public OurSingularityHappenings sensor_data;
+
     // Start is called before the first frame update
     void Start()
     {
-        textTemplate = hrtext.text;
+        textTemplate = labelElement.text;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        float hr, hrv, stress_level;
+        string message = sensor_data.CurrentMsg;
+        if (sensor_data.MsgReceived)
+        {
+            sensor_data.MsgReceived = false;
+            Debug.LogFormat("Message recieved from device: {1} bytes: {0}", message.Length, message);
+            if (message.StartsWith("DATA:"))
+            {
+                var tabloc = message.IndexOf('\t');
+                var payload = message[tabloc..];
+                var tag = message[0..tabloc];
+                float payload_value = float.Parse(payload);
+
+                switch (tag)
+                {
+                    case "DATA:HR:":
+                        hr = payload_value;
+                        break;
+                    case "DATA:HRV:":
+                        hrv = payload_value;
+                        break;
+                    case "DATA:SL:":
+                        stress_level = payload_value;
+                        break;
+                    default:
+                        Debug.LogErrorFormat("Argh! {0} is absolutely not one of our payload types!", tag);
+                        return;
+                }
+                UpdateTemplate(hr, hrv, stress_level);
+            }
+        }
+
     }
 
-    public void IncreaseHR(int number_bpm)
+    public void UpdateTemplate(float hr, float hrv, float stress_level)
     {
-        currentHr += number_bpm;
-        hrtext.text = textTemplate.Replace("{hr}", currentHr.ToString());
+        labelElement.text = textTemplate.Replace("{hr}", hr.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level.ToString());
     }
 }

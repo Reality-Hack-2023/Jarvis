@@ -144,5 +144,10 @@ namespace Sngty
     {
         public string name;
         public string mac;
+
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}", name, mac);
+        }
     }
 }
