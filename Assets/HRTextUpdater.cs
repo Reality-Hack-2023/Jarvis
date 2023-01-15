@@ -18,9 +18,11 @@ public class HRTextUpdater : MonoBehaviour
         textTemplate = labelElement.text;
     }
 
+
     private void Update()
     {
-        float hr = -1.0f,  hrv = -1.0f,  stress_level = -1.0f;
+        float hr = -1.0f,  hrv = -1.0f, stress_level = -1.0f;
+        int math_stress_level = -1; 
         string message = sensor_data.CurrentMsg;
         if (sensor_data.MsgReceived)
         {
@@ -40,6 +42,7 @@ public class HRTextUpdater : MonoBehaviour
                         break;
                     case "DATA:HRV:":
                         hrv = payload_value;
+                        math_stress_level = patientSimulator.AnalyzeHRV(hrv);
                         break;
                     case "DATA:SL:":
                         stress_level = payload_value;
@@ -48,19 +51,19 @@ public class HRTextUpdater : MonoBehaviour
                         Debug.LogErrorFormat("Argh! {0} is absolutely not one of our payload types!", tag);
                         return;
                 }
-                UpdateTemplate(hr, hrv, stress_level);
+                UpdateTemplate(hr, hrv, stress_level, math_stress_level);
             }
         }
         else if (patientSimulator.updated_data) {
-            UpdateTemplate(patientSimulator.hr, patientSimulator.hrv, patientSimulator.stress_level);    
+            UpdateTemplate(patientSimulator.hr, patientSimulator.hrv, patientSimulator.stress_level, patientSimulator.math_stress_level);    
         }
 
     }
 
-    public void UpdateTemplate(float hr, float hrv, float stress_level)
+    public void UpdateTemplate(float hr, float hrv, float stress_level, int math_stress_level)
     {
         int hr_int = (int)hr;
         int stress_level_int = (int)stress_level;
-        labelElement.text = textTemplate.Replace("{hr}", hr_int.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level_int.ToString());
+        labelElement.text = textTemplate.Replace("{hr}", hr_int.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level_int.ToString()).Replace("{msl}", math_stress_level.ToString());
     }
 }
