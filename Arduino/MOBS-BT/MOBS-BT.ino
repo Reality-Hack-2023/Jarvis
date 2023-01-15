@@ -15,7 +15,7 @@
 
 BluetoothSerial BTSerial;
 
-#define USE_BT 0
+#define USE_BT 1
 
 #if USE_BT
   #define MySerial BTSerial
@@ -109,7 +109,7 @@ void loop()
   MySerial.print("DATA:SL:\t");
 
   MySerial.println(stress_level);
-  heart_rate_updated = false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  heart_rate_updated = false;
 }
 
 void update_heart_rate() {
