@@ -7,13 +7,24 @@ namespace TMPro.Examples
     
     public class SimpleScript : MonoBehaviour
     {
-
+        public GameObject PatientCanvas;
+        public GameObject WaitingCanvas;
         private TextMeshPro m_textMeshPro;
         //private TMP_FontAsset m_FontAsset;
 
         private const string label = "The <#0050FF>count is: </color>{0:2}";
         private float m_frame;
 
+        IEnumerator YieldData()
+        {
+            yield return new WaitForSeconds(3.0f);
+            WaitingCanvas.SetActive(false);
+            PatientCanvas.SetActive(true);
+
+        }
+        public void TimerThreeSeconds() {
+            StartCoroutine(YieldData());
+        }
 
         void Start()
         {
