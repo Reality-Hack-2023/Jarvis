@@ -130,7 +130,6 @@ namespace Sngty
             private UnityEvent<string> onMessageRecievedEvent;
             public messageRecievedListener(UnityEvent<string> onMessageRecievedEvent) : base("com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface$OnMessageReceivedListener")
             {
-                Debug.Log("messageRecievedListener");
                 this.onMessageRecievedEvent = onMessageRecievedEvent;
             }
 
