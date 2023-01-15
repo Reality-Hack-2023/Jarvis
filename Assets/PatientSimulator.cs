@@ -12,6 +12,7 @@ public class PatientSimulator : MonoBehaviour
     public int math_stress_level;
     public bool updated_data;
     public bool enable_sim;
+    public bool enable_stress_sim;
 
     private float _mean;
     private float _stdDev;
@@ -49,6 +50,36 @@ public class PatientSimulator : MonoBehaviour
     {
         Debug.Log("hello!");
         StartCoroutine(YieldData());
+        StartCoroutine(YieldStress());
+    }
+
+    IEnumerator YieldStress()
+    {
+        math_stress_level = 2;
+        bool direction = false;
+
+        for (;;) {
+            while (!enable_stress_sim) {
+                yield return new WaitForSeconds(1.0f);
+            }
+
+            switch (math_stress_level) {
+            case 0:
+                yield return new WaitForSeconds(15.0f);
+                math_stress_level = 1;
+                direction = !direction;
+                break;
+            case 1:
+                yield return new WaitForSeconds(5.0f);
+                math_stress_level = direction ? 0 : 2;
+                break;
+            case 2:
+                yield return new WaitForSeconds(5.0f);
+                math_stress_level = 1;
+                direction = !direction;
+                break;
+            }
+        }
     }
 
     IEnumerator YieldData()
@@ -60,7 +91,7 @@ public class PatientSimulator : MonoBehaviour
         for (;;) {
             hr = Random.Range(hr_ranges[(int)stress_level*2], hr_ranges[(int)stress_level*2+1]);
             hrv = Random.Range(hrv_ranges[(int)stress_level*2], hrv_ranges[(int)stress_level*2+1]);
-            math_stress_level = AnalyzeHRV(hrv);
+            if (!enable_stress_sim) math_stress_level = AnalyzeHRV(hrv);
             
             if (enable_sim) updated_data = true;
 
