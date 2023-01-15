@@ -6492,7 +6492,7 @@ MonoBehaviour:
   stress_level: 0
   math_stress_level: 0
   updated_data: 0
-  enable_sim: 1
+  enable_sim: 0
   enable_stress_sim: 0
 --- !u!4 &1149488579
 Transform:
