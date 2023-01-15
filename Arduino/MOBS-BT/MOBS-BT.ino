@@ -103,12 +103,14 @@ void loop()
   int stress_level = get_stress_level_from_hrv(hrv);
   MySerial.print("DATA:HRV:\t");
   MySerial.println(hrv);
+  delay(10);
   MySerial.print("DATA:HR:\t");
   MySerial.println(heart_rate);
+  delay(10);
   MySerial.print("DATA:SL:\t");
   MySerial.println(stress_level);
+  delay(10);
   heart_rate_updated = false;         
-  MySerial.flush();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 }
 
 void update_heart_rate() {

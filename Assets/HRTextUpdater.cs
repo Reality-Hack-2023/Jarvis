@@ -10,6 +10,7 @@ public class HRTextUpdater : MonoBehaviour
     public TMP_Text labelElement;
     string textTemplate;
     public OurSingularityHappenings sensor_data;
+    public PatientSimulator patientSimulator;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +51,16 @@ public class HRTextUpdater : MonoBehaviour
                 UpdateTemplate(hr, hrv, stress_level);
             }
         }
+        else if (patientSimulator.updated_data) {
+            UpdateTemplate(patientSimulator.hr, patientSimulator.hrv, patientSimulator.stress_level);    
+        }
 
     }
 
     public void UpdateTemplate(float hr, float hrv, float stress_level)
     {
-        labelElement.text = textTemplate.Replace("{hr}", hr.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level.ToString());
+        int hr_int = (int)hr;
+        int stress_level_int = (int)stress_level;
+        labelElement.text = textTemplate.Replace("{hr}", hr_int.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level_int.ToString());
     }
 }
