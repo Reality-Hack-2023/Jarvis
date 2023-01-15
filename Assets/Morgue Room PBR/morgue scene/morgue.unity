@@ -677,52 +677,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 459340, guid: f531eff400a90054dbf121fa394b2965, type: 3}
   m_PrefabInstance: {fileID: 131134413}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &173280423
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 173280425}
-  - component: {fileID: 173280424}
-  m_Layer: 0
-  m_Name: TimerScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &173280424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173280423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eff140b25d64601aabc6ba32245d099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PatientCanvas: {fileID: 629094598}
-  WaitingCanvas: {fileID: 204476576}
---- !u!4 &173280425
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173280423}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 588.54474, y: 600.4815, z: 2303.248}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187674493
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +876,9 @@ GameObject:
   - component: {fileID: 204476580}
   - component: {fileID: 204476579}
   - component: {fileID: 204476578}
+  - component: {fileID: 204476582}
   m_Layer: 0
-  m_Name: Notif Canvas
+  m_Name: Timer Countdown Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,6 +985,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &204476582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204476576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d9413e3e391234aae2659088647e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PatientCanvas: {fileID: 1010386220}
+  WaitingCanvas: {fileID: 204476576}
+  textElt: {fileID: 1460206619}
 --- !u!4 &204979164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 459340, guid: f531eff400a90054dbf121fa394b2965, type: 3}
@@ -2312,7 +2282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.5
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -3252,8 +3222,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 173280424}
-        m_TargetAssemblyTypeName: TMPro.Examples.SimpleScript, Assembly-CSharp
+      - m_Target: {fileID: 204476582}
+        m_TargetAssemblyTypeName: TimerDown, Assembly-CSharp
         m_MethodName: TimerThreeSeconds
         m_Mode: 1
         m_Arguments:
@@ -5377,7 +5347,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4255764743081168539, guid: 58ca691d8249de547af97a78bf7bb720, type: 3}
+    - {fileID: 5328185917827003733, guid: 58ca691d8249de547af97a78bf7bb720, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 58ca691d8249de547af97a78bf7bb720, type: 3}
 --- !u!1001 &1412423528
 PrefabInstance:
@@ -5721,7 +5693,7 @@ GameObject:
   - component: {fileID: 1460206620}
   - component: {fileID: 1460206619}
   m_Layer: 0
-  m_Name: Main Label
+  m_Name: Countdown Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5767,7 +5739,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are now going to start the operation in 3 seconds
+  m_text: You are now going to start the operation in {remaining} seconds
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
