@@ -19,7 +19,7 @@ public class HRTextUpdater : MonoBehaviour
 
     private void Update()
     {
-        float hr, hrv, stress_level;
+        float hr = -1.0f,  hrv = -1.0f,  stress_level = -1.0f;
         string message = sensor_data.CurrentMsg;
         if (sensor_data.MsgReceived)
         {
