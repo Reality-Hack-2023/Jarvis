@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Morgue Room PBR/morgue scene/morgue.unity
+    guid: 845128cf95f90184697fffb609346de8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 66931d692945645de8ebba5040d62ea9, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1c2c8c518720040b4920ca1a5db7dc7b, type: 2}
