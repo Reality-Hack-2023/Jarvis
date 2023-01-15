@@ -101,11 +101,13 @@ void loop()
 
   double hrv = rmssd();
   int stress_level = get_stress_level_from_hrv(hrv);
-  MySerial.print("Data HRV:\t");
+
+  MySerial.print("DATA:HRV:\t");
   MySerial.println(hrv);
-  MySerial.print("Data HR:\t");
+  MySerial.print("DATA:HR:\t");
   MySerial.println(heart_rate);
-  MySerial.print("Data SL:\t");
+  MySerial.print("DATA:SL:\t");
+
   MySerial.println(stress_level);
   heart_rate_updated = false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 }
