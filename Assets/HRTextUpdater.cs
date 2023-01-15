@@ -10,7 +10,6 @@ public class HRTextUpdater : MonoBehaviour
     public TMP_Text labelElement;
     string textTemplate;
     public OurSingularityHappenings sensor_data;
-    float hr, hrv, stress_level;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +19,7 @@ public class HRTextUpdater : MonoBehaviour
 
     private void Update()
     {
+        float hr, hrv, stress_level;
         string message = sensor_data.CurrentMsg;
         if (sensor_data.MsgReceived)
         {
@@ -47,12 +47,13 @@ public class HRTextUpdater : MonoBehaviour
                         Debug.LogErrorFormat("Argh! {0} is absolutely not one of our payload types!", tag);
                         return;
                 }
-                UpdateTemplate();
+                UpdateTemplate(hr, hrv, stress_level);
             }
         }
 
     }
-    private void UpdateTemplate()
+
+    public void UpdateTemplate(float hr, float hrv, float stress_level)
     {
         labelElement.text = textTemplate.Replace("{hr}", hr.ToString()).Replace("{hrv}", hrv.ToString()).Replace("{sl}", stress_level.ToString());
     }

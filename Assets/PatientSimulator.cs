@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class PatientSimulator : MonoBehaviour
 {
+    HRTextUpdater hrTextUpdater;
+
     public UnityEvent<float> hr;
     public UnityEvent<float> hrv;
     public UnityEvent<float> stress_level;
@@ -28,9 +30,11 @@ public class PatientSimulator : MonoBehaviour
         var hr_ranges =  new List<double>  {/* 0 */ 120, 130, /* 1 */ 90, 110, /* 2 */ 85, 110, /* 3 */ 60, 85};
 
         for (;;) {
-            hr.Invoke(rng.Next(hr_ranges[stress_level*2], hr_ranges[stress_level*2+1]));
-            hrv.Invoke(rng.Next(hrv_ranges[stress_level*2], hrv_ranges[stress_level*2+1]));
-            stress_level.Invoke(stress_level);
+            double hr = rng.Next(hr_ranges[stress_level*2], hr_ranges[stress_level*2+1]));
+            double hrv = rng.Next(hrv_ranges[stress_level*2], hrv_ranges[stress_level*2+1]));
+            double stress_level = stress_level;
+
+            hrTextUpdater.UpdateTemplate(hr, hrv, stress_level);
 
             yield return new WaitForSeconds(5.f);
         }
